@@ -1,0 +1,8 @@
+prefix=/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/finalproj
+
+Name: finalproj
+Description: Description of finalproj
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

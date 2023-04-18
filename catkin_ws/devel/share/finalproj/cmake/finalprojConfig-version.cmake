@@ -1,0 +1,1 @@
+/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/finalproj/share/finalproj/cmake/finalprojConfig-version.cmake

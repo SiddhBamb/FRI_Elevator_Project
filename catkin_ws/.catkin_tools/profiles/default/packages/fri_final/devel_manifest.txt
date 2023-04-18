@@ -1,0 +1,6 @@
+fri_final
+/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/fri_final/cmake.lock /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/./cmake.lock
+/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/fri_final/lib/fri_final/opencv_hw /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/lib/fri_final/opencv_hw
+/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/fri_final/lib/pkgconfig/fri_final.pc /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/lib/pkgconfig/fri_final.pc
+/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/fri_final/share/fri_final/cmake/fri_finalConfig-version.cmake /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/share/fri_final/cmake/fri_finalConfig-version.cmake
+/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/fri_final/share/fri_final/cmake/fri_finalConfig.cmake /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/share/fri_final/cmake/fri_finalConfig.cmake
