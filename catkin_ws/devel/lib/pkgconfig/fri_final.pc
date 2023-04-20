@@ -1,1 +1,0 @@
-/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/fri_final/lib/pkgconfig/fri_final.pc

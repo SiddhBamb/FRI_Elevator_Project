@@ -1,8 +1,0 @@
-prefix=/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/install
-
-Name: fri_final
-Description: Description of fri_final
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

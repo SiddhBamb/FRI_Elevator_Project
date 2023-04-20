@@ -1,1 +1,0 @@
-/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/catkin_tools_prebuild/local_setup.sh

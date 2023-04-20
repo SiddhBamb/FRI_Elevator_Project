@@ -1,8 +1,0 @@
-prefix=/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/install
-
-Name: elevator_movement
-Description: Description of elevator_movement
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
