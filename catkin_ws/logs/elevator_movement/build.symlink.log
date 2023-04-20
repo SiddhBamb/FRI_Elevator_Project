@@ -1,4 +1,4 @@
-Symlinking /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/lib/elevator_movement/ElevatorMovement
-Symlinking /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/lib/pkgconfig/elevator_movement.pc
-Symlinking /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/share/elevator_movement/cmake/elevator_movementConfig.cmake
-Symlinking /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/share/elevator_movement/cmake/elevator_movementConfig-version.cmake
+Linked: (/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/elevator_movement/lib/elevator_movement/ElevatorMovement, /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/lib/elevator_movement/ElevatorMovement)
+Linked: (/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/elevator_movement/lib/pkgconfig/elevator_movement.pc, /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/lib/pkgconfig/elevator_movement.pc)
+Linked: (/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/elevator_movement/share/elevator_movement/cmake/elevator_movementConfig.cmake, /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/share/elevator_movement/cmake/elevator_movementConfig.cmake)
+Linked: (/home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/.private/elevator_movement/share/elevator_movement/cmake/elevator_movementConfig-version.cmake, /home/fri/Documents/ElevatorProject_sbkzrr/FRI_Elevator_Project/catkin_ws/devel/share/elevator_movement/cmake/elevator_movementConfig-version.cmake)
