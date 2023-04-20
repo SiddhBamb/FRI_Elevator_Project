@@ -12,13 +12,6 @@ roscpp
 std_msgs
 move_base_msgs
 actionlib
-roslibpy
-sensor_msgs
-cv_bridge
-cv2
-os
-numpy
-ultralytics
 )
 
 ## System dependencies are found with CMake's conventions
