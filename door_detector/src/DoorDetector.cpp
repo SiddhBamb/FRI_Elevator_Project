@@ -14,7 +14,7 @@ const std::string door_open_msg = "Door open";
 const std::string door_closed_msg = "Door closed";
 
 //Threshold for determining if door is open
-const double THRESHOLD = 10000;
+const double THRESHOLD = 2000;
 
 //Publisher object
 ros::Publisher publisher;
