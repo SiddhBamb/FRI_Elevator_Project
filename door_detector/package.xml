@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>opencv_hw</name>
+  <name>door_detector</name>
   <version>0.0.0</version>
   <description>Door detector</description>
 

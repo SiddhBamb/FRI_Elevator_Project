@@ -27,7 +27,9 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     cv_bridge::CvImagePtr opencv_img_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     cv::Mat img = opencv_img_ptr->image;
     
-    std::vector<cv::Mat> channels = cv::split(img);
+    std::vector<cv::Mat> channels;
+    cv::split(img, channels);
+
     double sumSquaredDiff = 0;
     int totalCount = 0;
     for (cv::Mat currChannel : channels) {
@@ -60,7 +62,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     //Subscribe to the two topics
-    image_transport::Subscriber classificationSubscriber = n.subscribe("camera", 1, imageCallback);
+    ros::Subscriber classificationSubscriber = n.subscribe("camera", 1, imageCallback);
 
     //Publish on channel
     publisher = n.advertise<std_msgs::String>("elevator_door_open_from_inside", 1);
