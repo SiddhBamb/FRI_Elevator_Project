@@ -18,10 +18,10 @@ class Node(object):
         self.loop_rate = rospy.Rate(10)
 
         # Publishers
-        self.pub = rospy.Publisher('imagetimer', String, queue_size=10)
+        self.pub = rospy.Publisher('elevator_door_classification', String, queue_size=10)
 
         # Subscribers
-        rospy.Subscriber("/camera/image_color", Image, self.callback)
+        rospy.Subscriber("/rgb/image_raw", Image, self.callback)
 
     def callback(self, msg):
         rospy.loginfo('Image received...')

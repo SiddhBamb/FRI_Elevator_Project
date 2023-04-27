@@ -62,7 +62,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     //Subscribe to the two topics
-    ros::Subscriber classificationSubscriber = n.subscribe("camera", 1, imageCallback);
+    ros::Subscriber classificationSubscriber = n.subscribe("/rgb/image_raw", 1, imageCallback);
 
     //Publish on channel
     publisher = n.advertise<std_msgs::String>("elevator_door_open_from_inside", 1);
