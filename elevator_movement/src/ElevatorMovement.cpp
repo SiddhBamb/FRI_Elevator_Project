@@ -126,11 +126,11 @@ void elevatorDoorClassificationCallback(const std_msgs::String::ConstPtr& msg)
     }
 
     //If at least four out of the last five classifications is door open, then try to move into the elevator
-    if (previous_classifications.size() > 5) {
+    if (previous_classifications.size() > 15) {
         uint64_t oldest_status = previous_classifications.front();
         previous_classifications.pop();
         num_open_classifications -= oldest_status;
-        if (num_open_classifications >= 4) {
+        if (num_open_classifications >= 12) {
             moveIntoElevator();
         }
     }
@@ -194,11 +194,11 @@ void elevatorDoorOpenFromInsideCallback(const std_msgs::String::ConstPtr& msg)
     }
 
     //If at least four of the five recent predictions are door open, then move out of the elevator
-    if (previous_inside_predictions.size() > 5) {
+    if (previous_inside_predictions.size() > 15) {
         uint64_t oldest_status = previous_inside_predictions.front();
         previous_inside_predictions.pop();
         num_open_from_inside -= oldest_status;
-        if (num_open_from_inside >= 4) {
+        if (num_open_from_inside >= 12) {
             moveOutOfElevator();
         }
     }

@@ -14,7 +14,7 @@ const std::string door_open_msg = "Door open";
 const std::string door_closed_msg = "Door closed";
 
 //Threshold for determining if door is open
-const double THRESHOLD = 2000;
+const double THRESHOLD = 5000;
 
 //Publisher object
 ros::Publisher publisher;
@@ -35,7 +35,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     for (cv::Mat currChannel : channels) {
         for (int i = 0; i < currChannel.rows; i++) {
             for (int j = 0; j < currChannel.cols; j++) {
-                sumSquaredDiff = pow(currChannel.at<uchar>(i,j) - 128, 2);
+                sumSquaredDiff += pow(128 - (int) (currChannel.at<uchar>(i,j)), 2);
                 totalCount++;
             }
         }
@@ -48,7 +48,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     } else {
         msgToPublish.data = door_closed_msg;
     }
-    ROS_INFO("door detection from inside: %s", msgToPublish.data.c_str());
+    ROS_INFO("door detection from inside: %s, value = %f", msgToPublish.data.c_str(), avgSquaredDiff);
     publisher.publish(msgToPublish);
 
 }
