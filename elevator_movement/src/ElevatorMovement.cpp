@@ -38,6 +38,8 @@ void rotate180Degrees()
 
     if (currentlyMoving) return;
 
+    ROS_INFO("Attempting to turn around");
+
     currentlyMoving = true;
 
     move_base_msgs::MoveBaseGoal rotationTarget;
@@ -76,13 +78,15 @@ void moveIntoElevator()
 
     currentlyMoving = true;
 
+    ROS_INFO("Attempting to move into elevator now");
+
     //Set a move goal that is two meters in front of the robot
     move_base_msgs::MoveBaseGoal elevatorTarget;
 
     elevatorTarget.target_pose.header.frame_id = "base_link";
     elevatorTarget.target_pose.header.stamp = ros::Time::now();
 
-    elevatorTarget.target_pose.pose.position.x = 2.0;
+    elevatorTarget.target_pose.pose.position.x = 3.5;
     elevatorTarget.target_pose.pose.orientation.w = 1.0;
 
     action_client->sendGoal(elevatorTarget);
@@ -126,11 +130,11 @@ void elevatorDoorClassificationCallback(const std_msgs::String::ConstPtr& msg)
     }
 
     //If at least four out of the last five classifications is door open, then try to move into the elevator
-    if (previous_classifications.size() > 15) {
+    if (previous_classifications.size() > 50) {
         uint64_t oldest_status = previous_classifications.front();
         previous_classifications.pop();
         num_open_classifications -= oldest_status;
-        if (num_open_classifications >= 12) {
+        if (num_open_classifications >= 40) {
             moveIntoElevator();
         }
     }
@@ -152,7 +156,7 @@ void moveOutOfElevator()
     outsideTarget.target_pose.header.frame_id = "base_link";
     outsideTarget.target_pose.header.stamp = ros::Time::now();
 
-    outsideTarget.target_pose.pose.position.x = 2.0;
+    outsideTarget.target_pose.pose.position.x = 3.0;
     outsideTarget.target_pose.pose.orientation.w = 1.0;
 
     action_client->sendGoal(outsideTarget);
@@ -220,7 +224,7 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     //Subscribe to the two topics
-    ros::Subscriber classificationSubscriber = n.subscribe("elevator_door_classification", 1, elevatorDoorClassificationCallback);
+    ros::Subscriber classificationSubscriber = n.subscribe("/door_openness", 1, elevatorDoorClassificationCallback);
     ros::Subscriber elevatorDoorOpenFromInsideSubscriber = n.subscribe("elevator_door_open_from_inside", 1, elevatorDoorOpenFromInsideCallback);
 
     //Link up with move_base

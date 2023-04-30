@@ -8,10 +8,14 @@ project(elevator_movement)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-roscpp
-std_msgs
-move_base_msgs
-actionlib
+    roscpp
+    std_msgs
+    move_base_msgs
+    actionlib
+
+    rospy
+    sensor_msgs
+    cv_bridge
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,9 +108,9 @@ actionlib
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS
 #  LIBRARIES elevator_movement
-#  CATKIN_DEPENDS other_catkin_pkg
+  CATKIN_DEPENDS rospy
 #  DEPENDS system_lib
 )
 
@@ -168,6 +172,9 @@ target_link_libraries(ElevatorMovement ${catkin_LIBRARIES})
 ##    scripts/Inference.py
 ##    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 ## )
+
+catkin_install_python(PROGRAMS scripts/Inference.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
