@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 
 # # import rospy
 # from sensor_msgs.msg import Image
@@ -53,10 +53,10 @@
 
 # if __name__ == '__main__':
 #     print("OMG LOL")
-    # rospy.init_node('Inference', anonymous=True)
-    # rospy.loginfo("__main__")
-    # my_node = Node()
-    # my_node.start()
+# rospy.init_node('Inference', anonymous=True)
+# rospy.loginfo("__main__")
+# my_node = Node()
+# my_node.start()
 
 from ultralytics import YOLO
 
@@ -68,18 +68,38 @@ import cv2
 
 import time
 
+
 class Classify(object):
     def __init__(self):
         self.model = YOLO('best.pt')
 
-    def doClassify(self, in_image):
+    def doExtClassify(self, in_image):
         results = self.model(in_image)
         for result in results:
             for box in result.boxes:
                 if box.data[0][5] == 2:
-                    #if box.data[0][3] - box.data[0][1] > 300 and box.data[0][2] - box.data[0][0] > 150:
+                    # if box.data[0][3] - box.data[0][1] > 300 and box.data[0][2] - box.data[0][0] > 150:
                     return "Door open"
         return "Door closed"
+
+    def doIntClassify(self, in_image):
+        b, g, r = cv2.split(in_image)
+        sumSquaredDif = 0
+        for i in range(b.shape[0]):
+            for j in range(b.shape[1]):
+                sumSquaredDif += pow(128 - (b[i, j]), 2)
+        for i in range(g.shape[0]):
+            for j in range(g.shape[1]):
+                sumSquaredDif += pow(128 - (g[i, j]), 2)
+        for i in range(r.shape[0]):
+            for j in range(r.shape[1]):
+                sumSquaredDif += pow(128 - (r[i, j]), 2)
+        avg = sumSquaredDif / (3 * b.rows * b.cols)
+
+        if avg > 5000:
+            return "Door open"
+        else:
+            return "Door closed"
 
     # constants
 
@@ -89,35 +109,35 @@ class Classify(object):
 
     # //Threshold for determining if door is open
     # const double THRESHOLD = 5000; //already tuned
-    
+
     # door detector from inside method
 
-        # std::vector<cv::Mat> channels;
-        # cv::split(img, channels);    //img is original image
+    # std::vector<cv::Mat> channels;
+    # cv::split(img, channels);    //img is original image
 
-        # double sumSquaredDiff = 0;
-        # int totalCount = 0;
-        # for (cv::Mat currChannel : channels) {
-        #     for (int i = 0; i < currChannel.rows; i++) {
-        #         for (int j = 0; j < currChannel.cols; j++) {
-        #             sumSquaredDiff += pow(128 - (int) (currChannel.at<uchar>(i,j)), 2);
-        #             totalCount++;
-        #         }
-        #     }
-        # }
-        # double avgSquaredDiff = sumSquaredDiff / totalCount;
+    # double sumSquaredDiff = 0;
+    # int totalCount = 0;
+    # for (cv::Mat currChannel : channels) {
+    #     for (int i = 0; i < currChannel.rows; i++) {
+    #         for (int j = 0; j < currChannel.cols; j++) {
+    #             sumSquaredDiff += pow(128 - (int) (currChannel.at<uchar>(i,j)), 2);
+    #             totalCount++;
+    #         }
+    #     }
+    # }
+    # double avgSquaredDiff = sumSquaredDiff / totalCount;
 
-        # std_msgs::String msgToPublish;
-        # if (avgSquaredDiff > THRESHOLD) {
-        #     msgToPublish.data = door_open_msg;
-        # } else {
-        #     msgToPublish.data = door_closed_msg;
-        # }
-        # ROS_INFO("door detection from inside: %s, value = %f", msgToPublish.data.c_str(), avgSquaredDiff);
-        # publisher.publish(msgToPublish);
-        
-        # probably can return string instead of publishing here
-        # publish on this channel: elevator_door_open_from_inside
+    # std_msgs::String msgToPublish;
+    # if (avgSquaredDiff > THRESHOLD) {
+    #     msgToPublish.data = door_open_msg;
+    # } else {
+    #     msgToPublish.data = door_closed_msg;
+    # }
+    # ROS_INFO("door detection from inside: %s, value = %f", msgToPublish.data.c_str(), avgSquaredDiff);
+    # publisher.publish(msgToPublish);
+
+    # probably can return string instead of publishing here
+    # publish on this channel: elevator_door_open_from_inside
 
 
 if __name__ == "__main__":
@@ -125,7 +145,8 @@ if __name__ == "__main__":
 
     client = roslibpy.Ros(host='localhost', port=9090)
     client.run()
-    talker = roslibpy.Topic(client, '/door_openness', 'std_msgs/String')
+    exterior = roslibpy.Topic(client, '/ext_door_openness', 'std_msgs/String')
+    interior = roslibpy.Topic(client, '/int_door_openness', 'std_msgs/String')
 
     # Initialize the library, if the library is not found, add the library path as argument
     pykinect.initialize_libraries()
@@ -138,7 +159,7 @@ if __name__ == "__main__":
     # Start device
     device = pykinect.start_device(config=device_config)
 
-    cv2.namedWindow('Color Image',cv2.WINDOW_NORMAL)
+    cv2.namedWindow('Color Image', cv2.WINDOW_NORMAL)
     while True:
 
         # Get capture
@@ -151,12 +172,14 @@ if __name__ == "__main__":
             continue
 
         # Plot the image
-        cv2.imshow("Color Image",color_image)
+        cv2.imshow("Color Image", color_image)
 
-        is_the_door_open = classify.doClassify(color_image)
-        print(is_the_door_open)
-        talker.publish(roslibpy.Message({'data': is_the_door_open}))
+        ext_is_the_door_open = classify.doExtClassify(color_image)
+        int_is_the_door_open = classify.doIntClassify(color_image)
+        # print(ext_is_the_door_open, int_is_the_door_open)
+        exterior.publish(roslibpy.Message({'data': ext_is_the_door_open}))
+        interior.publish(roslibpy.Message({'data': int_is_the_door_open}))
 
         # Press q key to stop
-        if cv2.waitKey(1) == ord('q'): 
+        if cv2.waitKey(1) == ord('q'):
             break
