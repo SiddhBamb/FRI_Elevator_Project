@@ -81,6 +81,44 @@ class Classify(object):
                     return "Door open"
         return "Door closed"
 
+    # constants
+
+    # //Expected messages for door open/closed
+    # const std::string door_open_msg = "Door open";
+    # const std::string door_closed_msg = "Door closed";
+
+    # //Threshold for determining if door is open
+    # const double THRESHOLD = 5000; //already tuned
+    
+    # door detector from inside method
+
+        # std::vector<cv::Mat> channels;
+        # cv::split(img, channels);    //img is original image
+
+        # double sumSquaredDiff = 0;
+        # int totalCount = 0;
+        # for (cv::Mat currChannel : channels) {
+        #     for (int i = 0; i < currChannel.rows; i++) {
+        #         for (int j = 0; j < currChannel.cols; j++) {
+        #             sumSquaredDiff += pow(128 - (int) (currChannel.at<uchar>(i,j)), 2);
+        #             totalCount++;
+        #         }
+        #     }
+        # }
+        # double avgSquaredDiff = sumSquaredDiff / totalCount;
+
+        # std_msgs::String msgToPublish;
+        # if (avgSquaredDiff > THRESHOLD) {
+        #     msgToPublish.data = door_open_msg;
+        # } else {
+        #     msgToPublish.data = door_closed_msg;
+        # }
+        # ROS_INFO("door detection from inside: %s, value = %f", msgToPublish.data.c_str(), avgSquaredDiff);
+        # publisher.publish(msgToPublish);
+        
+        # probably can return string instead of publishing here
+        # publish on this channel: elevator_door_open_from_inside
+
 
 if __name__ == "__main__":
     classify = Classify()
