@@ -224,8 +224,8 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     //Subscribe to the two topics
-    ros::Subscriber classificationSubscriber = n.subscribe("/door_openness", 1, elevatorDoorClassificationCallback);
-    ros::Subscriber elevatorDoorOpenFromInsideSubscriber = n.subscribe("elevator_door_open_from_inside", 1, elevatorDoorOpenFromInsideCallback);
+    ros::Subscriber classificationSubscriber = n.subscribe("/ext_door_openness", 1, elevatorDoorClassificationCallback);
+    ros::Subscriber elevatorDoorOpenFromInsideSubscriber = n.subscribe("/int_door_openness", 1, elevatorDoorOpenFromInsideCallback);
 
     //Link up with move_base
     MoveBaseClient ac("move_base", true);

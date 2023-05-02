@@ -1,3 +1,5 @@
+//Deprecated, fuctionality of this program is implemented in Python Inference.py script instead
+
 #include <string>
 #include <math.h>
 
